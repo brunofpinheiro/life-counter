@@ -1,13 +1,23 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import {View} from 'react-native';
 import DatePicker from 'react-native-datepicker';
+import {Container,
+        Lifetime,
+        BirthdateLabel,
+        BirthdateSelection,
+        DatePickerOuter,
+        LifetimeOuter,
+        ReturnButton,
+        ReturnButtonText,
+        YourAgeLabel} from './styles';
 
 export const App = () => {
   let currentDate = new Date();
-  const [birthdate, setBirthdate]     = useState(new Date());
-  const [yearsLived, setYearsLived]   = useState(0);
-  const [monthsLived, setMonthsLived] = useState(0);
-  let daysLived = 0;
+  const [birthdate, setBirthdate]       = useState(new Date());
+  const [yearsLived, setYearsLived]     = useState(0);
+  const [monthsLived, setMonthsLived]   = useState(0);
+  const [daysLived, setDaysLived]       = useState(0);
+  const [showLifeTime, setShowLifeTime] = useState(true);
 
   function calculateLifetime(event, selectedDate) {
     let tempYears  = 0;
@@ -16,7 +26,6 @@ export const App = () => {
 
     console.log('----------------------------------------');
     selectedDate = new Date('1989-09-02T03:00:00');
-    // console.log('data fixa >>>>>>>', selectedDate);
     currentDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate());
 
     // Calculate years
@@ -24,7 +33,7 @@ export const App = () => {
     if (currentDate.getMonth() < selectedDate.getMonth()) {
       tempYears--;
     }
-    console.log('tempYears:', tempYears);
+    console.log(`tempYears`, tempYears);
     setYearsLived(tempYears);
 
     // Calculate months
@@ -35,53 +44,71 @@ export const App = () => {
     } else {
       tempMonths = 0;
     }
-    console.log('tempMonths: ' + tempMonths);
+    console.log(`tempMonths`, tempMonths);
     setMonthsLived(tempMonths);
 
     // Calculate days
+    tempDays = currentDate.getDate();
+    console.log(`tempDays`, tempDays);
+    setDaysLived(tempDays);
+
+    setShowLifeTime(true);
   }
 
   return (
     <Container>
-      <DatePicker 
-        date={birthdate}
-        androidMode="spinner"
-        format="DD-MM-YYYY"
-        minDate="01-01-1900"
-        onDateChange={(event, date) => calculateLifetime(event, date)}
-      />
-      {/* <DatePicker
-        value={birthdate}
-        display="spinner"
-        style={styles.datepicker}
-        onChange={(event, date) => calculateLifetime(event, date)}
-        minimumDate={new Date(1900, 0, 1)}
-        maximumDate={new Date()}
-        dateFormat="dayofweek day month"
-      /> */}
+      {showLifeTime == false && 
+        <BirthdateSelection>
+          <BirthdateLabel>Data de nascimento</BirthdateLabel>
+          <DatePickerOuter>
+            <DatePicker
+            date={birthdate}
+            androidMode="spinner"
+            format="DD-MM-YYYY"
+            minDate="01-01-1900"
+            onDateChange={(event, date) => calculateLifetime(event, date)}
+            customStyles={{
+              dateTouchBody: {
+                fontSize: 26,
+                width: 200,
+              },
+              dateIcon: {
+                position: 'absolute',
+                left: 0,
+                top: 4,
+                marginLeft: 0
+              },
+              dateInput: {
+                marginLeft: 36,
+                borderColor: '#2d6187',
+                // borderWidth: 0,
+              },
+              dateText: {
+                color: '#2d6187',
+                fontSize: 24,
+              }
+            }}
+            />
+          </DatePickerOuter>
+        </BirthdateSelection>
+      }  
 
-      <Text style={styles.lifeTime}>{yearsLived} anos</Text>
-      <Text style={styles.lifeTime}>{monthsLived} meses</Text>
-      <Text style={styles.lifeTime}>{daysLived} dias</Text>
+      {showLifeTime && 
+        <View style={{flex: 1}}>
+          <LifetimeOuter>
+            <YourAgeLabel>Você tem</YourAgeLabel>
+            <Lifetime>{yearsLived} anos</Lifetime>
+            <Lifetime>{monthsLived} meses</Lifetime>
+            <Lifetime>{daysLived} dias</Lifetime>
+          </LifetimeOuter>
+
+          <ReturnButton onPress={() => setShowLifeTime(false)}>
+            <ReturnButtonText>Voltar</ReturnButtonText>
+          </ReturnButton>
+        </View>
+      }
     </Container>
   );
 }
 
 export default App;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#000066',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  lifeTime: {
-    color: '#fff',
-    fontSize: 24,
-  },
-  datepicker: {
-    width: 200,
-    color: '#fff',
-  }
-});

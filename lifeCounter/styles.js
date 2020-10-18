@@ -1,10 +1,52 @@
-import React from 'react';
 import styled from 'styled-components';
 
-const Container = styled.View`
+export const Container = styled.View`
     flex: 1;
-    background-color: '#000066';
+    background-color: #a8dda8;
+`;
+
+export const BirthdateLabel = styled.Text`
+    color: #2d6187;
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 50px;
+`;
+
+export const BirthdateSelection = styled.View`
+    flex: 1;
     align-items: center;
     justify-content: center;
 `;
-export default Container;
+
+export const DatePickerOuter = styled.View`
+    width: 200px;
+`;
+
+export const Lifetime = styled.Text`
+    color: #2d6187;
+    font-size: 24px;
+`;
+
+export const ReturnButton = styled.Pressable`
+    background-color: #28abb9;
+    align-items: center;
+    padding: 10px 0 10px 0;
+`;
+
+export const ReturnButtonText = styled.Text`
+    color: #effad3;
+    font-weight: bold;
+`;
+
+export const LifetimeOuter = styled.View`
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+`;
+
+export const YourAgeLabel = styled.Text`
+    font-size: 34px;
+    color: #28abb9;
+    font-weight: bold;
+    margin-bottom: 15px;
+`;
