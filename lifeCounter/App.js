@@ -16,7 +16,7 @@ export const App = () => {
   const [yearsLived, setYearsLived]     = useState(0);
   const [monthsLived, setMonthsLived]   = useState(0);
   const [daysLived, setDaysLived]       = useState(0);
-  const [showLifeTime, setShowLifeTime] = useState(true);
+  const [showLifeTime, setShowLifeTime] = useState(false);
   const [monthsText, setMonthsText]     = useState('meses');
 
   /**
@@ -25,8 +25,8 @@ export const App = () => {
    * @param {*} selectedDate 
    */
   function calculateLifetime(event, selectedDate) {
-    console.log('----------------------------------------');
-    selectedDate = new Date('1989-09-02T03:00:00');
+    // console.log('----------------------------------------');
+    // selectedDate = new Date('1989-09-02T03:00:00');
     currentDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate());
 
     calculateYears(selectedDate);
