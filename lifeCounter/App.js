@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {View} from 'react-native';
+import {View, Image} from 'react-native';
 import DatePicker from 'react-native-date-picker';
 import {Container,
         Lifetime,
@@ -9,7 +9,8 @@ import {Container,
         ReturnButton,
         ButtonText,
         YourAgeLabel,
-        CalculateButton} from './styles';
+        CalculateButton,
+        Logo} from './styles';
 
 export const App = () => {
   let currentDate = new Date();
@@ -106,6 +107,7 @@ export const App = () => {
     <Container>
       {showLifeTime == false && 
         <BirthdateSelection>
+          <Logo source={require('./assets/hourglass-icon.png')} />
           <BirthdateLabel>Data de nascimento</BirthdateLabel>
             <DatePicker
               date={selectedDate}

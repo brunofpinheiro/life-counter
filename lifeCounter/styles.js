@@ -57,3 +57,9 @@ export const CalculateButton = styled.TouchableOpacity`
     margin-top: 30px;
     width: 80%;
 `;
+
+export const Logo = styled.Image`
+    margin-bottom: 50px;
+    resize-mode: contain;
+    height: 70px;
+`;
