@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import {View} from 'react-native';
-import DatePicker from 'react-native-datepicker';
+import DatePicker from 'react-native-date-picker';
 import {Container,
         Lifetime,
         BirthdateLabel,
         BirthdateSelection,
-        DatePickerOuter,
         LifetimeOuter,
         ReturnButton,
-        ReturnButtonText,
-        YourAgeLabel} from './styles';
+        ButtonText,
+        YourAgeLabel,
+        CalculateButton} from './styles';
 
 export const App = () => {
   let currentDate = new Date();
@@ -18,15 +18,14 @@ export const App = () => {
   const [daysLived, setDaysLived]       = useState(0);
   const [showLifeTime, setShowLifeTime] = useState(false);
   const [monthsText, setMonthsText]     = useState('meses');
+  const [selectedDate, setSelectedDate] = useState(new Date());
 
   /**
    * Calculate how many years, months and days a given person has lived
    * @param {*} event 
    * @param {*} selectedDate 
    */
-  function calculateLifetime(event, selectedDate) {
-    // console.log('----------------------------------------');
-    // selectedDate = new Date('1989-09-02T03:00:00');
+  function calculateLifetime() {
     currentDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate());
 
     calculateYears(selectedDate);
@@ -108,50 +107,29 @@ export const App = () => {
       {showLifeTime == false && 
         <BirthdateSelection>
           <BirthdateLabel>Data de nascimento</BirthdateLabel>
-          <DatePickerOuter>
             <DatePicker
-              date={new Date()}
-              androidMode="spinner"
-              format="DD-MM-YYYY"
-              minDate="01-01-1900"
-              onDateChange={(event, date) => calculateLifetime(event, date)}
-              customStyles={{
-                dateTouchBody: {
-                  fontSize: 26,
-                  width: 200,
-                },
-                dateIcon: {
-                  position: 'absolute',
-                  left: 0,
-                  top: 4,
-                  marginLeft: 0
-                },
-                dateInput: {
-                  marginLeft: 36,
-                  borderColor: '#2d6187',
-                  // borderWidth: 0,
-                },
-                dateText: {
-                  color: '#2d6187',
-                  fontSize: 24,
-                }
-              }}
+              date={selectedDate}
+              mode='date'
+              androidVariant='nativeAndroid'
+              onDateChange={(date) => setSelectedDate(date)}
             />
-          </DatePickerOuter>
+            <CalculateButton onPress={() => calculateLifetime()}>
+              <ButtonText>Calcular</ButtonText>
+            </CalculateButton>
         </BirthdateSelection>
       }  
 
       {showLifeTime && 
         <View style={{flex: 1}}>
           <LifetimeOuter>
-            <YourAgeLabel>Você tem</YourAgeLabel>
+            <YourAgeLabel>Sua idade é de</YourAgeLabel>
             <Lifetime>{yearsLived} anos</Lifetime>
             <Lifetime>{monthsLived} {monthsText}</Lifetime>
             <Lifetime>{daysLived} dias</Lifetime>
           </LifetimeOuter>
 
           <ReturnButton onPress={() => setShowLifeTime(false)}>
-            <ReturnButtonText>Voltar</ReturnButtonText>
+            <ButtonText>Voltar</ButtonText>
           </ReturnButton>
         </View>
       }

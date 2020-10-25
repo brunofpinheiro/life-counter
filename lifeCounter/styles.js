@@ -19,7 +19,6 @@ export const BirthdateSelection = styled.View`
 `;
 
 export const DatePickerOuter = styled.View`
-    width: 200px;
 `;
 
 export const Lifetime = styled.Text`
@@ -27,13 +26,13 @@ export const Lifetime = styled.Text`
     font-size: 24px;
 `;
 
-export const ReturnButton = styled.Pressable`
+export const ReturnButton = styled.TouchableOpacity`
     background-color: #28abb9;
     align-items: center;
     padding: 10px 0 10px 0;
 `;
 
-export const ReturnButtonText = styled.Text`
+export const ButtonText = styled.Text`
     color: #effad3;
     font-weight: bold;
 `;
@@ -49,4 +48,12 @@ export const YourAgeLabel = styled.Text`
     color: #28abb9;
     font-weight: bold;
     margin-bottom: 15px;
+`;
+
+export const CalculateButton = styled.TouchableOpacity`
+    background-color: #28abb9;
+    align-items: center;
+    padding: 10px 0 10px 0;
+    margin-top: 30px;
+    width: 80%;
 `;
